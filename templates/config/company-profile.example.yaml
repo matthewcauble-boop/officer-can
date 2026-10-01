@@ -1,0 +1,95 @@
+# Officer Can — company profile. PUBLIC facts only, plain text.
+# Sensitive values (EIN, bank, tax IDs, W-9 PDF...) live in secrets.yaml.age — see secrets.example.yaml.
+# Every job reads this at run time. Nothing company-specific is hard-coded in scripts or workflows.
+
+company:
+  legal_name: "Example Foods Inc."
+  dba: "Example"
+  entity_type: "Delaware corporation"
+  incorporated: "2025-01-15"
+  # EIN and tax IDs: the vault (secrets.yaml.age), not here
+  address:
+    street: "123 Main St"
+    city: "Springfield"
+    state: "TX"
+    postal_code: "78701"
+    country: "United States"
+  phone: "(555) 555-0100"
+  website: "https://example.com"
+  naics: "312111"
+
+contacts:
+  owner:       { name: "Jane Founder", title: "CEO",      email: "jane@example.com" }
+  accounts_payable: { name: "Jane Founder", email: "ap@example.com" }
+  quality:     { name: "",             email: "" }
+  language: "English"
+
+billing:
+  invoice_method: "Email to ap@example.com"
+  currency: "USD"
+  payment_method: "Wire transfer"
+
+mailbox:
+  address: "jane@example.com"
+  cc_on_every_reply: ["ap@example.com"]     # e.g. a finance inbox
+  signature: |
+    Jane Founder
+    Example Foods Inc.
+    jane@example.com
+    (555) 555-0100
+  voice_sample: |
+    # Paste 3-5 of your own short sent emails. Drafts copy this tone and length.
+
+# Documents attached automatically when someone asks for "your W-9 / company docs".
+# Entries refer to secure-store document keys; each follows its own release rule.
+standard_packet: [w9, ein_letter, incorporation]
+
+# Facts the responder may state. If a question isn't answered here, the draft
+# says so and the thread is labeled NeedsYou — the agent never guesses.
+facts:
+  payment_terms: "Prepay by wire on proforma"
+  shipping_account: "FedEx 000000000"
+  shipping_method: "Freight"
+  # One entry = ship-to fields are filled from it. Several = the form filler asks which one (it depends
+  # on what's being ordered). Components are used by forms that split the address into fields.
+  receiving:
+    - name: "Main warehouse"
+      company: "Example Foods Inc."
+      street: "456 Dock Rd"
+      city: "Springfield"
+      state: "TX"
+      postal_code: "78702"
+      country: "United States"
+      address: "456 Dock Rd, Springfield TX 78702"
+      hours: "Mon-Fri 8am-4pm, appointment only"
+      contact: "receiving@example.com"
+  coa_email: "qa@example.com"
+  certifications_on_file: []
+
+# Form-fill hard rules — enforced in code, not only in the prompt.
+# Sensitive values follow their release rule in the secure store (auto / approve / never).
+# These form sections are always left blank regardless:
+never_fill_sections:
+  - trade_references
+  - credit_line_request
+
+storage:
+  backend: "github"                # github (now) | google_drive (later)
+  repo: "your-org/your-ops-repo"   # private repo
+  branch: "main"
+  financial_folder: "Finance"      # invoices, statements, remittance — kept apart
+  quality_folder: "Quality"        # specs, COAs, certs, SDS — safe to share with partners
+  index_sheet_id: ""
+
+autonomy:
+  auto_send_enabled: false         # draft-only until you flip this
+  max_sends_per_hour: 3
+  max_sends_per_day: 10
+  max_sentences: 6
+  allow_money_in_auto_send: false  # structural: never
+  known_senders_only: true
+  existing_threads_only: true
+
+models:
+  classifier: "<a fast, cheap model>"    # sorts mail, maps form labels to keys, types documents
+  drafter: "<your best writing model>"   # the only step that writes prose

@@ -1,0 +1,68 @@
+# Every item a vendor form can be filled from. The decision model maps each blank
+# form field to one of these ids; code then copies the value from the company
+# profile or the secure store. Descriptions are what the model reads.
+# `source: secret` values come from the vault (secrets.yaml.age) and follow their release rule.
+
+keys:
+  company.legal_name:        { source: profile, describe: "Registered legal name of our company" }
+  company.dba:               { source: profile, describe: "Trade name or doing-business-as name" }
+  company.entity_type:       { source: profile, describe: "Type of business entity: corporation, LLC, partnership, or sole proprietorship" }
+  company.ownership:         { source: profile, describe: "Whether the company is privately held or publicly traded" }
+  company.year_established:  { source: profile, describe: "Year or date the business was established, formed, or incorporated" }
+  company.employee_count:    { source: profile, describe: "Number of employees" }
+  company.parent_company:    { source: profile, describe: "Parent, holding, or subsidiary company" }
+  company.website:           { source: profile, describe: "Company website" }
+  company.phone:             { source: profile, describe: "Main company or business phone number" }
+  company.fax:               { source: profile, describe: "Fax number" }
+  company.address.full:      { source: profile, describe: "Full business, headquarters, or billing address on one line" }
+  company.address.street:    { source: profile, describe: "Street line of our business or billing address" }
+  company.address.city:      { source: profile, describe: "City of our business address" }
+  company.address.state:     { source: profile, describe: "State or province of our business address" }
+  company.address.postal_code: { source: profile, describe: "ZIP or postal code of our business address" }
+  company.address.country:   { source: profile, describe: "Country of our business address" }
+  company.revenue:           { source: profile, describe: "Annual revenue, sales, or revenue growth" }
+  company.facilities:        { source: profile, describe: "Number or location of plants, warehouses, or manufacturing facilities, or who manufactures for us" }
+  contact.main.name:         { source: profile, describe: "Main contact person's full name" }
+  contact.main.first_name:   { source: computed, describe: "Main contact person's first name or given name only" }
+  contact.main.last_name:    { source: computed, describe: "Main contact person's last name, surname or family name only" }
+  contact.language:          { source: profile, describe: "Preferred language for communication" }
+  contact.main.title:        { source: profile, describe: "Contact person's job title" }
+  contact.main.email:        { source: profile, describe: "Main contact email address" }
+  contact.main.phone:        { source: profile, describe: "Main contact phone number" }
+  contact.purchasing.name:   { source: profile, describe: "Purchasing or buyer contact name, who places orders" }
+  contact.purchasing.email:  { source: profile, describe: "Purchasing contact email, where to send order confirmations" }
+  contact.purchasing.phone:  { source: profile, describe: "Purchasing contact phone number" }
+  contact.ap.name:           { source: profile, describe: "Accounts payable contact name" }
+  contact.ap.email:          { source: profile, describe: "Accounts payable email or where to send invoices" }
+  contact.ap.phone:          { source: profile, describe: "Accounts payable phone number" }
+  contact.qa.name:           { source: profile, describe: "Quality assurance contact name" }
+  contact.qa.email:          { source: profile, describe: "Quality contact email or where to send COAs" }
+  billing.invoice_method:    { source: profile, describe: "How we want to receive invoices: email, mail, or portal" }
+  billing.currency:          { source: profile, describe: "Currency we pay in, such as USD" }
+  billing.payment_method:    { source: profile, describe: "How we pay: wire transfer, ACH, check, or credit card" }
+  receiving.address:         { source: profile, describe: "Ship-to, delivery, or receiving address for orders or samples" }
+  receiving.instructions:    { source: profile, describe: "Delivery hours, receiving times, or delivery requirements" }
+  receiving.contact:         { source: profile, describe: "Receiving contact name or receiving phone number" }
+  receiving.company:         { source: profile, describe: "Company name at the ship-to or delivery location" }
+  receiving.street:          { source: profile, describe: "Street of the ship-to or delivery address" }
+  receiving.city:            { source: profile, describe: "City of the ship-to or delivery address" }
+  receiving.state:           { source: profile, describe: "State or province of the ship-to or delivery address" }
+  receiving.postal_code:     { source: profile, describe: "ZIP or postal code of the ship-to or delivery address" }
+  receiving.country:         { source: profile, describe: "Country of the ship-to or delivery address" }
+  receiving.shipping_method: { source: profile, describe: "How orders should ship: freight, parcel, pickup, or preferred carrier" }
+  tax.ein:                   { source: secret,  describe: "Federal tax ID, EIN, FEIN, or tax identification number" }
+  tax.resale_id:             { source: secret,  describe: "State sales tax permit, resale certificate, or reseller number" }
+  tax.duns:                  { source: secret,  describe: "D&B or DUNS number" }
+  bank.name:                 { source: secret,  describe: "Name of our bank" }
+  bank.address:              { source: secret,  describe: "Our bank's address or branch" }
+  bank.phone:                { source: secret,  describe: "Our bank's phone number" }
+  bank.account_number:       { source: secret,  describe: "Bank account number" }
+  bank.routing_number:       { source: secret,  describe: "Bank routing or ABA number" }
+  date.today:                { source: computed, describe: "Today's date or the date the form is signed" }
+  SKIP_SIGNATURE:            { source: skip, describe: "A signature line, signature box, or authorized signature" }
+  SKIP_TRADE_REFERENCE:      { source: skip, describe: "A trade reference or supplier reference: another business's name, address, phone, or email" }
+  SKIP_CREDIT_REQUEST:       { source: skip, describe: "Credit limit requested or credit terms requested" }
+  SKIP_ATTACHMENT:           { source: skip, describe: "A request to attach a document such as a W-9 or certificate rather than type a value" }
+  SKIP_NOT_APPLICABLE:       { source: skip, describe: "A field that doesn't apply to us: a PO box, a name or address in another language or script, or a section heading" }
+  SKIP_THIRD_PARTY:          { source: skip, describe: "Details of a different company, such as a co-packer, co-manufacturer, broker, distributor or parent company, rather than our own" }
+  NEEDS_HUMAN:               { source: skip, describe: "A free-text question, yes/no checkbox, or anything not listed above, like how did you hear about us or additional information" }

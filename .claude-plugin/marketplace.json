@@ -1,0 +1,11 @@
+{
+  "name": "officer-can",
+  "owner": { "name": "Wonderade Corporation", "url": "https://wonderade.us" },
+  "plugins": [
+    {
+      "name": "officer-can",
+      "source": "./",
+      "description": "An operations team for your coding agent: inbox triage, vendor forms, filing, document chasing and supplier negotiation, drafts by default."
+    }
+  ]
+}

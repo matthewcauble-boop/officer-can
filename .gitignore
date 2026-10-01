@@ -1,0 +1,7 @@
+.DS_Store
+*.age.key
+age.key
+secrets.yaml
+.env
+__pycache__/
+*.pyc

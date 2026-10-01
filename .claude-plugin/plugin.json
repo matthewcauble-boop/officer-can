@@ -1,0 +1,10 @@
+{
+  "name": "officer-can",
+  "version": "1.0.0",
+  "description": "An operations team for your coding agent: 9 specialists and 20 skills that sort a business inbox, fill vendor forms from an encrypted company vault, file every attachment, chase documents, negotiate with suppliers hat in hand, and ask instead of guessing.",
+  "author": { "name": "Wonderade Corporation", "url": "https://wonderade.us" },
+  "homepage": "https://github.com/matthewcauble-boop/officer-can",
+  "repository": "https://github.com/matthewcauble-boop/officer-can",
+  "license": "MIT",
+  "keywords": ["email", "inbox", "forms", "procurement", "operations", "supply-chain", "negotiation", "small-business"]
+}

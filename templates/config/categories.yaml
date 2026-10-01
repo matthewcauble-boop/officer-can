@@ -1,0 +1,76 @@
+# Triage categories. The decision model reads each id + `recognize` text; the router switches on `action`.
+# Add or change a category here — no code edits. Write `recognize` as a plain description of the email.
+
+defaults:
+  confidence_floor: 0.7
+  fallback_category: other
+
+actions:
+  DRAFT_REPLY:      "Threaded reply draft answered only from profile.facts"
+  NEGOTIATE:        "Negotiator drafts a hat-in-hand reply (price, MOQ, terms, lead time); label NeedsYou; never auto-sent"
+  FILL_FORM:        "Extract + fill attached form, attach to reply draft with standard packet"
+  FILE_ATTACHMENTS: "Classify and file attachments to storage + index; no reply"
+  NEEDS_YOU:        "Label NeedsYou, one-line summary to the user in chat, no draft"
+  LABEL_ONLY:       "Label and leave"
+  ARCHIVE:          "Label Archive, remove from inbox"
+
+categories:
+  - id: vendor_form
+    action: FILL_FORM
+    recognize: "A supplier asks us to fill out and return a form: new customer setup, new account form, credit application, vendor onboarding packet, or W-9 request."
+
+  - id: document_request
+    action: DRAFT_REPLY
+    recognize: "Someone asks us to send them a document or a fact we keep on file: a certificate, spec sheet, COA, allergen statement, our address, where to ship samples, or our shipping account."
+
+  - id: supplier_question
+    action: NEEDS_YOU
+    recognize: "A supplier, co-packer, or manufacturer asks us a technical, quality, formula, or production question, points out a discrepancy, or asks us to review and approve something like a batch sheet, spec, or cleaning matrix."
+
+  - id: order_logistics
+    action: DRAFT_REPLY
+    recognize: "A question about moving goods on an order: where to ship, delivery appointments, receiving docks, customs or HTS codes, customs broker setup, or freight arrangements."
+
+  - id: documents_received
+    action: FILE_ATTACHMENTS
+    recognize: "Someone sends us quality or regulatory documents as attachments: COA, spec sheet, SDS, allergen statement, kosher or halal certificate, audit report, or updated documentation we asked for."
+
+  - id: billing
+    action: FILE_ATTACHMENTS
+    storage_area: financial
+    recognize: "Invoices, proforma invoices, account statements, payment reminders or collections, payment instructions, or questions about an invoice or what we owe."
+
+  - id: pricing_or_terms
+    action: NEGOTIATE
+    confidence_floor: 0.9
+    recognize: "A supplier quotes or discusses price, minimum order quantity, lead time, order size they can accept, price increases, or payment terms."
+
+  - id: legal_or_investor
+    action: NEEDS_YOU
+    confidence_floor: 0.9
+    keyword_override: ["term sheet", "equity", "cap table", "due diligence", "lawsuit", "counsel", "NDA", "MSA", "indemnif", "contract amendment", "investor update"]
+    recognize: "Legal, investor, fundraising, or contract matters."
+
+  - id: fyi_update
+    action: LABEL_ONLY
+    recognize: "An update that needs no answer: a shipment or sample has shipped with tracking, an item was received, a thank-you, an acknowledgement like noted or will do, an emoji reaction, or an out-of-office auto-reply."
+
+  - id: scheduling
+    action: LABEL_ONLY
+    recognize: "A calendar invitation, meeting request, calendar reminder, or a request to find a time to talk."
+
+  - id: pitch
+    action: LABEL_ONLY
+    recognize: "A cold sales pitch from someone we don't work with, offering their agency, manufacturing, photography, or other services."
+
+  - id: system_alert
+    action: LABEL_ONLY
+    recognize: "An automated account or security notice: new sign-in, unrecognized device, sign-in code, account ready, OAuth or admin console warnings."
+
+  - id: newsletter
+    action: ARCHIVE
+    recognize: "A newsletter, marketing email, promotion, sale, webinar or event invitation, product announcement, or upsell sent to a list."
+
+  - id: other
+    action: LABEL_ONLY
+    recognize: "Anything that fits none of the other descriptions."
