@@ -24,3 +24,4 @@ Schedule it morning and late afternoon (cron, a Claude Code routine, or n8n). Ea
 - Send a digest email.
 - Remind about the same thing more than once per sweep, or keep pushing after the user has said to stop.
 - Conclude "no reply yet" from an inbox-only search.
+- Report a mail outage because nothing arrived for a while. Weekends and holidays are quiet. Say mail is broken only when something independent confirms it: routine automated senders (receipts, calendar, security notices) have stopped too, or the provider's status page shows a problem. If those are still arriving, it's just a quiet stretch.

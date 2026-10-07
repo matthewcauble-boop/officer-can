@@ -10,6 +10,7 @@ description: The one correct way to put a reply (with or without attachments) in
 - Attachments: inline base64 works for small files (under ~15 KB is safe in most tool calls). For bigger files, use a server-side path that builds the reply from repo files (for example a GitHub Action or n8n node that reads the original message's headers and attaches by path). Confirm the attachment from that job's log, not by assumption.
 - Files over 25 MB can't be attached. Share a link instead. If they arrived as download links (for example iCloud Mail Drop), forwarding the original email carries the links.
 - Never overwrite or delete a draft you didn't create. The user may have started one.
+- **Pick the recipient by role, not by who wrote last.** A billing contact can't answer an artwork or quality question. If the right person isn't on the thread, say so to the user and suggest who to address (or a new thread to them) instead of sending it to whoever is there.
 
 ## The send gate (only if `autonomy.auto_send_enabled: true`)
 Send without asking only if **all** pass. Otherwise leave the draft and tell the user.

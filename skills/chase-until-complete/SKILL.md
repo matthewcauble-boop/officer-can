@@ -14,6 +14,8 @@ description: Draft short, polite chase emails for open checklist items on a fixe
 - Three to five lines, friendly, specific:
   > Hi Ana, just following up on the remaining docs for the pea protein: the COA for lot 2291 and the allergen statement. Could you send those when you get a chance? Thanks!
 - Name each missing item exactly as on the checklist. If something they sent was wrong, say what: "the COA we received is for lot 2280; we need lot 2291."
+- **Re-read the original request before every chase.** Ask only for what the requester actually listed, quoting their wording when you can. Don't widen it with documents that seem related or that a fuller checklist elsewhere would include. If you're unsure whether something was asked for, leave it out and ask the user.
+- **Send it to the person whose job it is.** Check the contact's role in your notes first. A documents or quality contact gets document chases; an accounts-receivable or collections contact who happened to write last is the wrong recipient. If no one in the thread fits, ask the user who to address rather than defaulting to the last sender.
 - No pressure tactics, no deadlines unless the user supplied one, and no mention of other suppliers.
 - Draft only. The user sends, unless they've said to send chases automatically.
 

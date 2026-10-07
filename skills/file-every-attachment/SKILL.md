@@ -13,10 +13,11 @@ description: Save each email attachment to files/Quality or files/Finance under 
    - ref = lot, invoice, PO, or certificate number if visible, else a short product word
    - e.g. `2026-09-18-acme-ingredients-coa-lot2291.pdf`, `2026-09-21-acme-ingredients-invoice-INV30267.pdf`
 5. **Path:** `files/<Quality|Finance>/<counterparty>/<doc-type>/<name>`. Financial types (invoice, account_statement, payment_instructions, purchase_order, quote, contract) **always** go to `files/Finance/`.
-6. **Never overwrite:** if the name exists and the bytes differ, add `-v2`. If they're identical, skip it. A resend of a whole package can reuse the vendor's old filenames, so check before writing.
+6. **Never overwrite, never duplicate:** if the name exists and the bytes differ, add `-v2`. If they're identical, skip it. Also compare the file's hash against everything already filed for that counterparty, not just the same name: vendors resend the same document under a new filename (`spec (2).pdf`, `spec-final.pdf`), and a document already on file under our name shouldn't be filed twice.
 7. **Index** the file (`index-and-expiry`), then commit with a message like `file: 2 docs from acme-ingredients (coa, spec_sheet)`.
 8. **Tell the Compliance Chaser** which checklist items this might close.
 
 ## Rules
 - The Quality tree may be mirrored to a shared drive for partners (co-packers, auditors). Nothing financial may land there. If in doubt, it goes in Finance.
 - Keep the original filename in the index `source_name` column. Suppliers refer to it.
+- **Finish the filing the same day.** If attachments were pulled down raw into a holding folder (a download job, an export), rename and place them before the sweep ends. If a partner wants documents grouped another way too (one folder per ingredient or product for a co-packer submission), put the copy there in the same pass. Raw downloads left in a holding folder look filed but aren't, and the checklist never closes.
